@@ -15,7 +15,7 @@ def NasaDashboard():
         html.Label('Text Input'),
         dcc.Input(type='text', id="text_input"),
 
-        dbc.Button('Run Callback', id='button', color='primary', style={'margin-bottom': '1em'}, block=True),
+        dbc.Button('Run Callback', id='button', color='primary', style={'margin-bottom': '1em'}),
         html.Br(),
         html.Div(id='my-output'),
     ])
