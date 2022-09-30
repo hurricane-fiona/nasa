@@ -3,8 +3,8 @@ import json
 
 
 
+collected_data = []
 def do_search():
-    collected_data = []
     total_download_count = 0
     total_text_download_count = 0
     for page_idx in range(START_PAGE, MAX_PAGE_NUMBER, MAX_PAGE_SIZE):
@@ -26,11 +26,11 @@ def do_search():
 def retriable_request(request):
     max_attempt = 2
     retry_attempt = 0
-    resp = 200
+    resp = request() 
     while (not resp.status_code == 500) and retry_attempt <= max_attempt:
         resp = request()
         retry_attempt+=1
-        limit_remaining = resp.headers["x-ratelimit-remaining"]
+        limit_remaining = int(resp.headers["x-ratelimit-remaining"])
         if limit_remaining <= 0:
             print("rate Limited till "+ str(resp.headers["x-ratelimit-reset"]))
             break
