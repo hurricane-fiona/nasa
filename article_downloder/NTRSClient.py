@@ -1,6 +1,9 @@
 import requests
 import json
 
+
+collected_data = []
+
 def do_search_request(search_body):
     resp = requests.post(SEARCH_URL, data=json.dumps(search_body), headers = headers)
     if(resp.status_code == requests.codes.ok):
@@ -26,6 +29,7 @@ def do_search_request(search_body):
                     for download in downloads:
                         download_links = download["links"]
                         if download_links.get("fulltext"):
+                            collected_data.append(citation)
                             text_download_counts += 1
         print("Downloads available for "+str(download_count))
         print("Text Downloads available for "+str(text_download_counts))
@@ -38,7 +42,7 @@ BASE_NTRS_URL = "https://ntrs.nasa.gov/api"
 SEARCH_URL = BASE_NTRS_URL + "/citations/search"
 MAX_PAGE_SIZE = 100
 MAX_PAGE_NUMBER = 600000
-START_PAGE = 4000
+START_PAGE = 6000
 search_body = {
     "page": {
         "size": MAX_PAGE_SIZE,
@@ -50,19 +54,19 @@ search_body = {
     },
 }
 
-keyword_search_body = {
-    "keyword": [
-        "plasma"
-    ],
-    "page": {
-        "size": MAX_PAGE_SIZE,
-        "from": 0
-    },
-    "sort": {
-        "field": "id",
-        "order": "dsc"
-    },
-}
+# keyword_search_body = {
+#     "keyword": [
+#         "plasma"
+#     ],
+#     "page": {
+#         "size": MAX_PAGE_SIZE,
+#         "from": 0
+#     },
+#     "sort": {
+#         "field": "id",
+#         "order": "dsc"
+#     },
+# }
 headers = {"Content-Type": "application/json"}
 ids_seen = set()
 total_download_count = 0
@@ -73,8 +77,16 @@ for page_idx in range(START_PAGE, MAX_PAGE_NUMBER, MAX_PAGE_SIZE):
     citation_count, download_count, text_download_counts = do_search_request(req_body)
     total_text_download_count += text_download_counts
     total_download_count += download_count
-    if citation_count < MAX_PAGE_SIZE:
+    if total_text_download_count>2000:
         break
+ #    if citation_count < MAX_PAGE_SIZE:
+ #        break
 
 print("Total downloaded count = "+str(total_download_count))
 print("Total text downloaded count = "+str(total_text_download_count))
+
+import json
+with open('collected_data.json', 'w', encoding='utf-8') as f:
+    json.dump(collected_data, f, ensure_ascii=False, indent=4)
+
+
