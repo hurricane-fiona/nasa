@@ -47,6 +47,8 @@ def update_output_div(input_value):
         return f'Output: {a}'
     elif input_value == 'ML':
         return f'Output: {b}'
+    elif input_value.lower() == "hola":
+        return "Hola Sandri :)   Atentamente, Juan"
     else:
         return f'Output: {c}'
 
