@@ -32,7 +32,7 @@ vectorizer = TfidfVectorizer(ngram_range=(1, 3), max_features=10000, max_df=0.8,
 X = vectorizer.fit_transform(texts)
 
 print('Saving vectorizer object')
-pickle.dump(vectorizer , open('vectorizer.pickle', 'wb'))
+pickle.dump(vectorizer , open('vectorizer.pkl', 'wb'))
 
 print('Saving NPZ files')
 from scipy import sparse
