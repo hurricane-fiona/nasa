@@ -8,6 +8,7 @@ METADATA_ID_TRACKING_FILE = ".metadata_id_tracking"
 METADATA_PAGE_TRACKING_FILE = ".metadata_page_tracking"
 
 def get_all_articles_metadata():
+    citation_already_downloaded = read_tracked_metadata_ids()
     page_start, fetch_size = read_page_metadata()
     page_start = get_next_page_start(page_start, fetch_size)
     while page_start <= NTRSClient.MAX_PAGE_NUMBER:
@@ -20,17 +21,22 @@ def get_all_articles_metadata():
         if fetch_size < NTRSClient.MAX_PAGE_SIZE:
             print("fetched all possible articles?")
             break
-        save_metadata(citations)
-        track_metadata(citations, page_start, len(citations))
+        for citation in citations:
+            citation_id = citation["id"]
+            if not citation_id in citation_already_downloaded:
+                save_metadata(citation)
+                write_tracked_metadata_id(citation_id)
+                citation_already_downloaded.add(citation_id)
+
+        write_page_metadata(page_start, fetch_size)
 
 def make_citation_filename(citation):
     citation_id = str(citation["id"]).strip()
     return citation_id + ".json"
 
-def save_metadata(citations):
-    for citation in citations:
-        with open(METADATA_DIR + make_citation_filename(citation), "w") as f:
-            json.dump(citation, f, indent=4)
+def save_metadata(citation):
+    with open(METADATA_DIR + make_citation_filename(citation), "w") as f:
+        json.dump(citation, f, indent=4)
 
 def get_next_page_start(curr_page_start, curr_fetch_size):
     curr_page_start = int(curr_page_start)
@@ -38,13 +44,6 @@ def get_next_page_start(curr_page_start, curr_fetch_size):
 
     if(curr_page_start == -1): return START_PAGE
     else: return curr_page_start+curr_fetch_size
-
-def track_metadata(citations, curr_page_start, curr_fetch_size):
-    for citation in citations:
-        citation_id = citation["id"]
-        write_tracked_metadata_id(citation_id)
-
-    write_page_metadata(curr_page_start, curr_fetch_size)
 
 def write_page_metadata(page_idx, fetch_size):
     with open(METADATA_DIR+METADATA_PAGE_TRACKING_FILE, "a") as f:
