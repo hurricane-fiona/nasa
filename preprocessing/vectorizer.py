@@ -7,7 +7,6 @@ from scipy import sparse
 
 
 def vectorize(files, store=False):
-
     nlp = spacy.load('en_core_web_sm')
 
     def lemmatize(text):
