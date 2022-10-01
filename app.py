@@ -32,7 +32,7 @@ app.layout = dbc.Container(
                         id="query",
                         placeholder="Search",
                         type="text",
-                        value = "test query"
+                        value="test query"
                     ),
                     width=9
                 ),
@@ -73,101 +73,46 @@ def show_results(n_clicks, input_value):
         # print(data)
         # print(data.relevance)
         output = [
-<<<<<<< HEAD
             create_card(
-                data.iloc[0]["title"],
+                data.iloc[1]["title"],
                 "keyword1, keyword2, keyword3",
-                data.iloc[0]["abstract"],
+                data.iloc[1]["relevance"],
+                data.iloc[1]["abstract"],
             ),
             html.Br(),
             create_card(
                 data.iloc[1]["title"],
                 "keyword1, keyword2, keyword3",
+                data.iloc[1]["relevance"],
                 data.iloc[1]["abstract"],
             ),
             html.Br(),
             create_card(
                 data.iloc[2]["title"],
                 "keyword1, keyword2, keyword3",
+                data.iloc[2]["relevance"],
                 data.iloc[2]["abstract"],
             ),
             html.Br(),
             create_card(
                 data.iloc[3]["title"],
                 "keyword1, keyword2, keyword3",
+                data.iloc[3]["relevance"],
                 data.iloc[3]["abstract"],
             ),
             html.Br(),
             create_card(
                 data.iloc[4]["title"],
                 "keyword1, keyword2, keyword3",
+                data.iloc[4]["relevance"],
                 data.iloc[4]["abstract"],
             ),
             html.Br(),
             create_card(
                 data.iloc[5]["title"],
                 "keyword1, keyword2, keyword3",
+                data.iloc[5]["relevance"],
                 data.iloc[5]["abstract"],
-=======
-            dbc.Row(
-                [
-                    dbc.Col(
-                        create_card(
-                            data.iloc[0]["title"],
-                            "keyword1, keyword2, keyword3", 
-                            data.iloc[0]["relevance"],
-                            data.iloc[0]["abstract"],
-                        )
-                    ),
-                    dbc.Col(
-                        create_card(
-                            data.iloc[1]["title"],
-                            "keyword1, keyword2, keyword3", 
-                            data.iloc[1]["relevance"],
-                            data.iloc[1]["abstract"],
-                        )
-                    ),
-                    dbc.Col(
-                        create_card(
-                            data.iloc[2]["title"],
-                            "keyword1, keyword2, keyword3", 
-                            data.iloc[2]["relevance"],
-                            data.iloc[2]["abstract"],
-                        )
-                    ),
-                ],
-                # className = "g-0"
-            ),
-            html.Br(),
-            dbc.Row(
-                [
-                    dbc.Col(
-                        create_card(
-                            data.iloc[3]["title"],
-                            "keyword1, keyword2, keyword3", 
-                            data.iloc[3]["relevance"],
-                            data.iloc[3]["abstract"],
-                        )
-                    ),
-                    dbc.Col(
-                        create_card(
-                           data.iloc[4]["title"],
-                           "keyword1, keyword2, keyword3", 
-                           data.iloc[4]["relevance"],
-                           data.iloc[4]["abstract"],
-                        )
-                    ),
-                    dbc.Col(
-                        create_card(
-                           data.iloc[5]["title"],
-                           "keyword1, keyword2, keyword3", 
-                           data.iloc[5]["relevance"],
-                           data.iloc[5]["abstract"],
-                        )
-                    )
-                ],
-                # className = "g-0"
->>>>>>> c6f1fc0d86aa15dd924aaed9a03f9ac984872479
             ),
         ]
     return output
