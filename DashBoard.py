@@ -10,26 +10,6 @@ app.layout = dbc.Container(
     [
         dbc.Row(dbc.Col(html.H1(children='Fiona Dashboard'))),
         dbc.Row(dbc.Col(html.Div('Text Input', style={'textAlign': 'center'}))),
-        # dbc.Row(
-        #     [
-        #         dbc.Col(dbc.Textarea(
-        #             id="text_input",
-        #             placeholder="Search")
-        #         ),
-        #         # dbc.Col(dbc.Input(id="text_input", type="search", placeholder="Search")),
-        #         dbc.Col(
-        #             dbc.Button(
-        #                 # "Search",
-        #                 'Run Callback',
-        #                 id='button',
-        #                 color="primary", className="ms-2", n_clicks=0
-        #             ),
-        #             width="auto",
-        #         ),
-        #     ],
-        #     className="g-0 ms-auto flex-nowrap mt-3 mt-md-0",
-        #     align="center",
-        # ),
         dbc.Row(
             [
                 dbc.Col(
@@ -55,31 +35,6 @@ app.layout = dbc.Container(
         html.Div(id='my-output'),
     ],
     fluid=True
-)
-
-app.layout = dbc.Container(
-    [
-        html.H1(children='Fiona Dashboard'),
-        html.Div('Text Input', style={'textAlign': 'center'}),
-        html.Div([
-            dcc.Input(
-                type='text',
-                id="text_input",
-                style={
-                    'width': '80%',
-                }
-            ),
-            dbc.Button(
-                'Run Callback',
-                id='button',
-                color='primary',
-                style={'margin-bottom': '1em'},
-                # block=True
-            ),
-        ]),
-        html.Br(),
-        html.Div(id='my-output'),
-    ]
 )
 
 
