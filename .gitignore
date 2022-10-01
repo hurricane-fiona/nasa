@@ -1,3 +1,8 @@
 *.swp
 openstack*
 *.pyc
+*.txt
+*.npz
+*.pkl
+.idea/
+article_downloder/preprocessing.ipynb

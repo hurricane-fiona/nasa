@@ -1,7 +1,6 @@
 import json
-import requests
+import NTRSClient
 
-PREFIX = "https://ntrs.nasa.gov/"
 def read_json(metadata_file):
     with open(metadata_file, 'r') as f:
         metadata = json.load(f)
@@ -15,9 +14,13 @@ def download_n_full_textfiles(metadata_file, n=-1):
 
     for index in range(n):
         for each in metadata[index]["downloads"]:
-            URL = PREFIX + each['links']['fulltext']
-            response = requests.get(URL)
-            open(URL.split("/")[-1], "wb").write(response.content)
+            URL = each['links']['fulltext']
+            download_and_save(URL)
+
+
+def download_and_save(url):
+    content = NTRSClient.download(url)
+    open(url.split("/")[-1], "wb").write(content)
 
 if __name__ == "__main__":
     download_n_full_textfiles('collected_data.json', 100)
