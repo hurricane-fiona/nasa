@@ -88,7 +88,8 @@ def show_results(n_clicks, input_value):
                     dbc.Col(
                         create_card("Title 3", "keyword1, keyword2, keyword3", body)
                     ),
-                ]
+                ],
+                # className = "g-0"
             ),
             html.Br(),
             dbc.Row(
@@ -102,7 +103,8 @@ def show_results(n_clicks, input_value):
                     dbc.Col(
                         create_card("Title 6", "keyword1, keyword2, keyword3", body)
                     )
-                ]
+                ],
+                # className = "g-0"
             ),
         ]
     return output

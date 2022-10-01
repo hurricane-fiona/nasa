@@ -23,6 +23,5 @@ def create_card(title, key_words, summary):
                 )
             ]
         ),
-        # style={"width": "9rem"},
     )
     return my_card
