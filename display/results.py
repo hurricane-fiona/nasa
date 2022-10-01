@@ -17,11 +17,11 @@ def create_card(title, key_words, summary):
                 dbc.Row(
                     [
                         dbc.Col(),
+                        dbc.Col(),
                         dbc.Col(dbc.Button("Summary", href="https://google.com")),
                     ]
                 )
             ]
         ),
-        # style={"width": "18rem"},
     )
     return my_card

@@ -3,35 +3,36 @@ import dash_bootstrap_components as dbc
 from dash import dcc
 from dash import html
 from dash.dependencies import Output, Input, State
-from display.results import create_card 
+from display.results import create_card
 
 body = "Some quick example text to build on the card title and make up the bulk of the card's content."
 
 app = dash.Dash(
-    __name__, 
+    __name__,
     # use_pages = True,
-    external_stylesheets=[dbc.themes.BOOTSTRAP]
+    # external_stylesheets=[dbc.themes.BOOTSTRAP],
+    # external_stylesheets=[dbc.themes.CYBORG],
+    external_stylesheets=[dbc.themes.DARKLY]
 )
 
 app.layout = dbc.Container(
     [
-        dbc.Row(dbc.Col(html.H1('FIONA'))),
+        dbc.Row(dbc.Col(html.H1('FIONA', style={'textAlign': 'center'}))),
         dbc.Row(dbc.Col(html.H2('Can AI preserve our science legacy?'))),
         # dbc.Row(dbc.Col(html.Div('Text Input', style={'textAlign': 'center'}))),
         dbc.Row(
             [
                 dbc.Col(
-                    dbc.Textarea(
+                    dbc.Input(
                         id="query",
-                        placeholder="Search"
+                        placeholder="Search",
+                        type="text"
                     ),
-                    width = 9
+                    width=9
                 ),
-                # dbc.Col(dbc.Input(id="text_input", type="search", placeholder="Search")),
                 dbc.Col(
                     dbc.Card(
                         dbc.Button(
-                            # "Search",
                             'Search',
                             id='search',
                             # color="primary", className="ms-2", n_clicks=0
@@ -46,11 +47,12 @@ app.layout = dbc.Container(
         ),
         html.Br(),
         # html.Div(id='my-output'),
-        dbc.Container(id='results', fluid = True),
+        dbc.Container(id='results', fluid=True),
         # html.Div(dash.page_container),
     ],
     fluid=True
 )
+
 
 @app.callback(
     Output('results', 'children'),
@@ -79,8 +81,8 @@ def show_results(n_clicks, input_value):
                 [
                     dbc.Col(
                         create_card("Title 1", "keyword1, keyword2, keyword3", body)
-                    ), 
-                    dbc.Col( 
+                    ),
+                    dbc.Col(
                         create_card("Title 2", "keyword1, keyword2, keyword3", body)
                     ),
                     dbc.Col(
@@ -92,10 +94,10 @@ def show_results(n_clicks, input_value):
             html.Br(),
             dbc.Row(
                 [
-                    dbc.Col( 
+                    dbc.Col(
                         create_card("Title 4", "keyword1, keyword2, keyword3", body)
                     ),
-                    dbc.Col( 
+                    dbc.Col(
                         create_card("Title 5", "keyword1, keyword2, keyword3", body)
                     ),
                     dbc.Col(
