@@ -179,7 +179,7 @@ def compute_relevance(query,limit=20):
         d['keywords'].append(keywords)
         
         try:
-            authors = [author['meta']['author']['name'] for author in data['authorAffiliations']]
+            authors = [author['meta']['author']['name'] for author in data_item['authorAffiliations']]
         except:
             authors = []
         authors = ';'.join(authors)
