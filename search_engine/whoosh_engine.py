@@ -117,11 +117,11 @@ from whoosh.qparser import QueryParser,MultifieldParser
 from whoosh.scoring import MultiWeighting
 
 def get_data_path():
-    return '../data/real/fulltext/'
+    return 'data/real/fulltext/'
 def get_metadata_path():
-    return '../metadata'
+    return 'metadata'
 def get_index_path():
-    return  '../data/real/index/
+    return  'data/real/index/'
 
 
 def _search(query, limit):
