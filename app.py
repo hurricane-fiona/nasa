@@ -3,7 +3,7 @@ import dash_bootstrap_components as dbc
 from dash import dcc
 from dash import html
 from dash.dependencies import Output, Input, State
-from library.articles import create_card 
+from display.results import create_card 
 
 app = dash.Dash(
     __name__, 
@@ -76,13 +76,13 @@ def show_results(n_clicks, input_value):
             dbc.Row(
                 [
                     dbc.Col(
-                        article()
+                        create_card()
                     ), 
                     dbc.Col( 
-                        article()
+                        create_card()
                     ),
                     dbc.Col(
-                        article()
+                        create_card()
                     ),
                 ]
             ),
@@ -90,13 +90,13 @@ def show_results(n_clicks, input_value):
             dbc.Row(
                 [
                     dbc.Col( 
-                        article()
+                        create_card()
                     ),
                     dbc.Col( 
-                        article()
+                        create_card()
                     ),
                     dbc.Col(
-                        article()
+                        create_card()
                     )
                 ]
             ),
