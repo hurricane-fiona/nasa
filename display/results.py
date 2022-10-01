@@ -1,19 +1,27 @@
 from dash import html
 import dash_bootstrap_components as dbc
 
-def create_card(
-    title = "title",
-    keywords = ["a", "b", "c"],
-    text = "testing text",
-    pdf = "file.pdf"
-):
-    output = dbc.Col(
-        [
-            title,
-            html.Div(keywords),
-            text,
-            pdf
-        ]
-    )
-    return output
 
+def create_card(title, key_words, summary):
+    my_card = dbc.Card(
+        dbc.CardBody(
+            [
+                dbc.Row(dbc.Col(html.H4(title, className="card-title"))),
+                html.Br(),
+                dbc.Row(dbc.Col(html.H6(key_words, className="card-subtitle"))),
+                dbc.Row(dbc.Col(html.P(
+                    summary,
+                    className="card-text",
+                ))),
+                html.Br(),
+                dbc.Row(
+                    [
+                        dbc.Col(),
+                        dbc.Col(dbc.Button("Summary", href="https://google.com")),
+                    ]
+                )
+            ]
+        ),
+        style={"width": "18rem"},
+    )
+    return my_card

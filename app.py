@@ -5,6 +5,8 @@ from dash import html
 from dash.dependencies import Output, Input, State
 from display.results import create_card 
 
+body = "Some quick example text to build on the card title and make up the bulk of the card's content."
+
 app = dash.Dash(
     __name__, 
     # use_pages = True,
@@ -76,13 +78,13 @@ def show_results(n_clicks, input_value):
             dbc.Row(
                 [
                     dbc.Col(
-                        create_card()
+                        create_card("Title 1", "keyword1, keyword2, keyword3", body)
                     ), 
                     dbc.Col( 
-                        create_card()
+                        create_card("Title 2", "keyword1, keyword2, keyword3", body)
                     ),
                     dbc.Col(
-                        create_card()
+                        create_card("Title 3", "keyword1, keyword2, keyword3", body)
                     ),
                 ]
             ),
@@ -90,13 +92,13 @@ def show_results(n_clicks, input_value):
             dbc.Row(
                 [
                     dbc.Col( 
-                        create_card()
+                        create_card("Title 4", "keyword1, keyword2, keyword3", body)
                     ),
                     dbc.Col( 
-                        create_card()
+                        create_card("Title 5", "keyword1, keyword2, keyword3", body)
                     ),
                     dbc.Col(
-                        create_card()
+                        create_card("Title 6", "keyword1, keyword2, keyword3", body)
                     )
                 ]
             ),
