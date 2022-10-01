@@ -28,9 +28,19 @@ class WebException(Exception):
         self.http_code = http_code
         self.err_msg = err_msg
 
-def create_paged_search_body(start_page):
+def set_from_page(start_page, search_body):
+    search_body["page"]["from"] = start_page
+    return search_body
+
+def set_publication_year(fromYear, toYear, search_body):
+    search_body["published"] = {}
+    search_body["published"]["gt"] = str(fromYear)
+    search_body["published"]["lte"] = str(toYear)
+    search_body["published"]["format"] = "YYYY"
+    return search_body
+
+def get_search_request():
     body = search_body.copy()
-    body["page"]["from"] = start_page
     return body
 
 def __retriable_request(request):
