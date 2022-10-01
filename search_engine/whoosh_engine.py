@@ -147,7 +147,9 @@ def compute_relevance(query,limit=20):
     'abstract': [], 
     'id': [],
     'keywords':[],
-    'score': []
+    'score': [],
+    'text_link':[],
+    'pdf_link':[],
             }
     for id_, score in hits:
         f = open(os.path.join(get_metadata_path(),f'{id_}.json'))
@@ -172,6 +174,12 @@ def compute_relevance(query,limit=20):
         d['id'].append(id_)
         d['keywords'].append(keywords)
 
+        text_link = BASE_NTRS_URL + data_item['downloads'][0]['links']['fulltext'] if 'downloads' in data_item and 'fulltext' in data_item['downloads'][0]['links'] else ''
+        pdf_link = BASE_NTRS_URL + data_item['downloads'][0]['links']['pdf'] if 'downloads' in data_item and 'pdf' in data_item['downloads'][0]['links'] else ''
+
+        d['text_link'].append(text_link)
+        d['pdf_link'].append(pdf_link)
+        
         # Closing file
         f.close()
 
