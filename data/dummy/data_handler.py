@@ -30,3 +30,11 @@ def get_dummy_data():
 
     df = pd.DataFrame(d)
     return df.set_index('id')
+
+if __name__ == "__main__":
+    corpus = get_dummy_data()
+    print("corpus", corpus.shape)
+    print("writing corpus as pickle...")
+    corpus.to_pickle("dummy.pkl")
+    print(corpus.head())
+    print("\ndone!")

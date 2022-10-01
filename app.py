@@ -4,6 +4,7 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Output, Input, State
 from display.results import create_card
+from search_engine.whoosh import compute_relevance
 
 body = "Some quick example text to build on the card title and make up the bulk of the card's content."
 
@@ -60,33 +61,32 @@ app.layout = dbc.Container(
     [State('query', 'value')]
 )
 def show_results(n_clicks, input_value):
-    # a = "Artificial intelligence (AI) is intelligence demonstrated by machines, as opposed to the natural " \
-    #     "intelligence displayed by animals and humans."
-    # b = "Machine learning (ML) is a field of inquiry devoted to understanding and building methods that 'learn', " \
-    #     "that is, methods that leverage data to improve"
-    # c = "Deep learning is part of a broader family of machine learning methods based on artificial neural networks " \
-    #     "with representation learning."
-    # if input_value == 'AI':
-    #     return f'Output: {a}'
-    # elif input_value == 'ML':
-    #     return f'Output: {b}'
-    # elif input_value and input_value.lower() == "hola":
-    #     return "Hola Sandri :)   Atentamente, Juan"
-    # else:
-    #     return f'Output: {c}'
     output = None
     if input_value:
+        data = compute_relevance(input_value).head(6)
         output = [
             dbc.Row(
                 [
                     dbc.Col(
-                        create_card("Title 1", "keyword1, keyword2, keyword3", body)
+                        create_card(
+                            data.iloc[0]["title"],
+                            "keyword1, keyword2, keyword3", 
+                            data.iloc[0]["abstract"],
+                        )
                     ),
                     dbc.Col(
-                        create_card("Title 2", "keyword1, keyword2, keyword3", body)
+                        create_card(
+                            data.iloc[1]["title"],
+                            "keyword1, keyword2, keyword3", 
+                            data.iloc[1]["abstract"],
+                        )
                     ),
                     dbc.Col(
-                        create_card("Title 3", "keyword1, keyword2, keyword3", body)
+                        create_card(
+                            data.iloc[2]["title"],
+                            "keyword1, keyword2, keyword3", 
+                            data.iloc[2]["abstract"],
+                        )
                     ),
                 ],
                 # className = "g-0"
@@ -95,13 +95,25 @@ def show_results(n_clicks, input_value):
             dbc.Row(
                 [
                     dbc.Col(
-                        create_card("Title 4", "keyword1, keyword2, keyword3", body)
+                        create_card(
+                            data.iloc[3]["title"],
+                            "keyword1, keyword2, keyword3", 
+                            data.iloc[3]["abstract"],
+                        )
                     ),
                     dbc.Col(
-                        create_card("Title 5", "keyword1, keyword2, keyword3", body)
+                        create_card(
+                           data.iloc[4]["title"],
+                           "keyword1, keyword2, keyword3", 
+                           data.iloc[4]["abstract"],
+                        )
                     ),
                     dbc.Col(
-                        create_card("Title 6", "keyword1, keyword2, keyword3", body)
+                        create_card(
+                           data.iloc[5]["title"],
+                           "keyword1, keyword2, keyword3", 
+                           data.iloc[5]["abstract"],
+                        )
                     )
                 ],
                 # className = "g-0"
