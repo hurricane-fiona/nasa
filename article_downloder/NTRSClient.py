@@ -22,8 +22,9 @@ search_body = {
     },
 }
 class WebException(Exception):
-    def __init__(self, http_code, err_msg):
-        super.__init__()
+    def __init__(self, http_code, err_msg, rate_limit_remaining):
+        super().__init__(err_msg + " RateLimitRemaining="+str(rate_limit_remaining))
+        self.rate_limit_remaining = rate_limit_remaining
         self.http_code = http_code
         self.err_msg = err_msg
 
@@ -39,16 +40,20 @@ def __retriable_request(request):
     while (not resp.status_code == 500) and retry_attempt <= max_attempt:
         resp = request()
         retry_attempt+=1
-        limit_remaining = int(resp.headers["x-ratelimit-remaining"])
+        limit_remaining = __get_rate_limit_remaining(resp)
         if limit_remaining <= 0:
             print("rate Limited till "+ str(resp.headers["x-ratelimit-reset"]))
             break
     return resp
 
+def __get_rate_limit_remaining(resp):
+    return int(resp.headers["x-ratelimit-remaining"])
+
 def __do_request(request):
     resp = __retriable_request(request)
     if(not resp.status_code == requests.codes.ok):
-        raise WebException(resp.status_code, resp.text)
+        limit_remaining = __get_rate_limit_remaining(resp)
+        raise WebException(resp.status_code, resp.text, limit_remaining)
     return resp
 
 def __parse_search_response(resp):
