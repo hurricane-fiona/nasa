@@ -20,11 +20,11 @@ def build_figure(df):
         y='frequency',
         template="flatly",  # "darkly",
         width=300,
-        height=300
+        height=300,
     )
     figure.update_layout(
         margin=dict(l=20, r=20, t=20, b=20),
-        paper_bgcolor="LightSteelBlue",
+        paper_bgcolor="#375a7f",  # cornflowerblue lightsteelblue steelblue
     )
     return figure
 
@@ -56,19 +56,26 @@ def create_card(title, key_words, relevance, summary):  # summary
                                     dbc.Row(
                                         [
                                             # dbc.Col(width=9),
-                                            dbc.Col(dbc.Button("Summary", href="https://google.com")),
-                                            dbc.Col(dbc.Button("Full text", href="https://google.com")),
+                                            dbc.Col(dbc.Button("Summary", href="https://google.com",
+                                                               style={"width": "100%"})),
+                                            dbc.Col(dbc.Button("Full text", href="https://google.com",
+                                                               style={"width": "100%"})),
                                         ]
                                     )
                                 ],
                                 width=9,
                             ),
                             dbc.Col(
-                                dcc.Graph(
-                                    id='graph',
-                                    figure=build_figure(df)
+                                dbc.Card(
+                                    dcc.Graph(
+                                        id='graph',
+                                        figure=build_figure(df),
+                                        style={'border-radius': '15px', 'background-color': '#375a7f'}
+                                    ),
+                                    style={'background-color': '#375a7f', 'padding': '5px', 'border-radius': '15px'}
                                 ),
                                 width=3,
+                                # align="center"
                             ),
                         ]
                     )
