@@ -4,7 +4,8 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Output, Input, State
 from display.results import create_card
-from search_engine.dummy import compute_relevance
+# from search_engine.dummy import compute_relevance
+from search_engine.whoosh_engine import compute_relevance
 
 body = "Some quick example text to build on the card title and make up the bulk of the card's content."
 
@@ -74,44 +75,48 @@ def show_results(n_clicks, input_value):
         # print(data.relevance)
         output = [
             create_card(
-                data.iloc[1]["title"],
-                "keyword1, keyword2, keyword3",
-                data.iloc[1]["relevance"],
-                data.iloc[1]["abstract"],
+                data.iloc[0]["title"],
+                data.iloc[0]["keywords"],
+                data.iloc[0]["score"],
+                data.iloc[0]["abstract"],
             ),
             html.Br(),
             create_card(
                 data.iloc[1]["title"],
-                "keyword1, keyword2, keyword3",
-                data.iloc[1]["relevance"],
+                data.iloc[1]["keywords"],
+                data.iloc[1]["score"],
                 data.iloc[1]["abstract"],
+                # data.iloc[1]["title"],
+                # "keyword1, keyword2, keyword3",
+                # data.iloc[1]["relevance"],
+                # data.iloc[1]["abstract"],
             ),
             html.Br(),
             create_card(
                 data.iloc[2]["title"],
-                "keyword1, keyword2, keyword3",
-                data.iloc[2]["relevance"],
+                data.iloc[2]["keywords"],
+                data.iloc[2]["score"],
                 data.iloc[2]["abstract"],
             ),
             html.Br(),
             create_card(
                 data.iloc[3]["title"],
-                "keyword1, keyword2, keyword3",
-                data.iloc[3]["relevance"],
+                data.iloc[3]["keywords"],
+                data.iloc[3]["score"],
                 data.iloc[3]["abstract"],
             ),
             html.Br(),
             create_card(
                 data.iloc[4]["title"],
-                "keyword1, keyword2, keyword3",
-                data.iloc[4]["relevance"],
+                data.iloc[4]["keywords"],
+                data.iloc[4]["score"],
                 data.iloc[4]["abstract"],
             ),
             html.Br(),
             create_card(
                 data.iloc[5]["title"],
-                "keyword1, keyword2, keyword3",
-                data.iloc[5]["relevance"],
+                data.iloc[5]["keywords"],
+                data.iloc[5]["score"],
                 data.iloc[5]["abstract"],
             ),
         ]
