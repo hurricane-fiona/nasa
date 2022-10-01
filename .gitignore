@@ -1,2 +1,5 @@
 *.swp
-.idea
+*.txt
+*.npz
+*.pkl
+.idea/
