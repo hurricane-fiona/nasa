@@ -4,7 +4,7 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Output, Input, State
 from display.results import create_card
-from search_engine.whoosh import compute_relevance
+from search_engine.dummy import compute_relevance
 
 body = "Some quick example text to build on the card title and make up the bulk of the card's content."
 
@@ -27,7 +27,8 @@ app.layout = dbc.Container(
                     dbc.Input(
                         id="query",
                         placeholder="Search",
-                        type="text"
+                        type="text",
+                        value = "test query"
                     ),
                     width=9
                 ),
@@ -64,6 +65,8 @@ def show_results(n_clicks, input_value):
     output = None
     if input_value:
         data = compute_relevance(input_value).head(6)
+        print(data)
+        print(data.relevance)
         output = [
             dbc.Row(
                 [
@@ -71,6 +74,7 @@ def show_results(n_clicks, input_value):
                         create_card(
                             data.iloc[0]["title"],
                             "keyword1, keyword2, keyword3", 
+                            data.iloc[0]["relevance"],
                             data.iloc[0]["abstract"],
                         )
                     ),
@@ -78,6 +82,7 @@ def show_results(n_clicks, input_value):
                         create_card(
                             data.iloc[1]["title"],
                             "keyword1, keyword2, keyword3", 
+                            data.iloc[1]["relevance"],
                             data.iloc[1]["abstract"],
                         )
                     ),
@@ -85,6 +90,7 @@ def show_results(n_clicks, input_value):
                         create_card(
                             data.iloc[2]["title"],
                             "keyword1, keyword2, keyword3", 
+                            data.iloc[2]["relevance"],
                             data.iloc[2]["abstract"],
                         )
                     ),
@@ -98,6 +104,7 @@ def show_results(n_clicks, input_value):
                         create_card(
                             data.iloc[3]["title"],
                             "keyword1, keyword2, keyword3", 
+                            data.iloc[3]["relevance"],
                             data.iloc[3]["abstract"],
                         )
                     ),
@@ -105,6 +112,7 @@ def show_results(n_clicks, input_value):
                         create_card(
                            data.iloc[4]["title"],
                            "keyword1, keyword2, keyword3", 
+                           data.iloc[4]["relevance"],
                            data.iloc[4]["abstract"],
                         )
                     ),
@@ -112,6 +120,7 @@ def show_results(n_clicks, input_value):
                         create_card(
                            data.iloc[5]["title"],
                            "keyword1, keyword2, keyword3", 
+                           data.iloc[5]["relevance"],
                            data.iloc[5]["abstract"],
                         )
                     )

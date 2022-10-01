@@ -25,6 +25,9 @@ def get_dummy_data():
         d['title'].append(title)
         d['abstract'].append(abstract)
         d['id'].append(id_)
+        # categories
+        # link to the pdf
+        # link to the full text
 
     # Closing file
     f.close()
