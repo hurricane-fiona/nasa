@@ -8,7 +8,7 @@ def create_card(title, key_words, summary):
             [
                 dbc.Row(dbc.Col(html.H4(title, className="card-title"))),
                 html.Br(),
-                dbc.Row(dbc.Col(html.H6(key_words, className="card-subtitle"))),
+                dbc.Row(dbc.Col(html.B(key_words, className="card-subtitle"))),
                 dbc.Row(dbc.Col(html.P(
                     summary,
                     className="card-text",
@@ -17,11 +17,11 @@ def create_card(title, key_words, summary):
                 dbc.Row(
                     [
                         dbc.Col(),
+                        dbc.Col(),
                         dbc.Col(dbc.Button("Summary", href="https://google.com")),
                     ]
                 )
             ]
         ),
-        style={"width": "18rem"},
     )
     return my_card
