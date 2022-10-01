@@ -116,9 +116,16 @@ import whoosh.index as index
 from whoosh.qparser import QueryParser,MultifieldParser
 from whoosh.scoring import MultiWeighting
 
+def get_data_path():
+    return '../data/real/fulltext/'
+def get_metadata_path():
+    return '../metadata'
+def get_index_path():
+    return  '../data/real/index/
 
-def _search(query, limit, index_path):
-    ix = index.open_dir(index_path)
+
+def _search(query, limit):
+    ix = index.open_dir(get_index_path())
     searcher = ix.searcher()
 
     qp = MultifieldParser(['ID', 'title', 'abstract', 'body', 'authors'], schema=ix.schema)
@@ -133,8 +140,8 @@ def _search(query, limit, index_path):
 
 import pandas as pd
 
-def compute_relevance(query, index_path='index/',  metadata_path='data/',limit=20):
-    hits = _search(query, limit=limit, index_path=index_path)
+def compute_relevance(query,limit=20):
+    hits = _search(query, limit=limit)
     d = {
     'title': [],
     'abstract': [], 
@@ -143,7 +150,7 @@ def compute_relevance(query, index_path='index/',  metadata_path='data/',limit=2
     'score': []
             }
     for id_, score in hits:
-        f = open(os.path.join(metadata_path,f'{id_}.json'))
+        f = open(os.path.join(get_metadata_path(),f'{id_}.json'))
 
         # returns JSON object as 
         # a dictionary
