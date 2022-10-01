@@ -2,7 +2,7 @@ import json
 
 import NTRSClient
 
-START_PAGE = 5000
+START_PAGE = 0
 METADATA_DIR = "../metadata/"
 METADATA_ID_TRACKING_FILE = ".metadata_id_tracking"
 METADATA_PAGE_TRACKING_FILE = ".metadata_page_tracking"
