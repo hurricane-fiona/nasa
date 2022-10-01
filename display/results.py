@@ -13,8 +13,9 @@ df = pd.DataFrame({
 })
 
 
-def create_card(title, key_words, summary):
+def create_card(title, key_words, relevance, summary):
     my_card = dbc.Card(
+<<<<<<< HEAD
         [
             dbc.CardHeader(html.H4(title, className="card-title")),
             dbc.CardBody(
@@ -61,5 +62,29 @@ def create_card(title, key_words, summary):
                 ]
             ),
         ]
+=======
+        dbc.CardBody(
+            [
+                dbc.Row(dbc.Col(html.H4(title, className="card-title"))),
+                html.Br(),
+                dbc.Row(dbc.Col(html.B(key_words, className="card-subtitle"))),
+                html.Br(),
+                dbc.Row(dbc.Col(f"Relevance: {relevance:.3f}")),
+                html.Br(),
+                dbc.Row(dbc.Col(html.P(
+                    summary,
+                    className="card-text",
+                ))),
+                html.Br(),
+                dbc.Row(
+                    [
+                        dbc.Col(),
+                        dbc.Col(),
+                        dbc.Col(dbc.Button("Summary", href="https://google.com")),
+                    ]
+                )
+            ]
+        ),
+>>>>>>> c6f1fc0d86aa15dd924aaed9a03f9ac984872479
     )
     return my_card
