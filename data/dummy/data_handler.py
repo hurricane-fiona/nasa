@@ -1,6 +1,7 @@
 import pandas as pd
 import json
-  
+
+
 def get_dummy_data():
     # Opening JSON file
     f = open('JSONs/collected_data.json')
@@ -9,7 +10,7 @@ def get_dummy_data():
     # a dictionary
     d = {
         'title': [],
-        'abstract': [], 
+        'abstract': [],
         'id': [],
     }
     data = json.load(f)
