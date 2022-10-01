@@ -12,21 +12,40 @@ import os
 ##################
 if __name__=='__main__':    
     input_=' '.join(sys.argv[1:])
-    
+    ########
+    # HELP #
+    ########
     if re.search('--help',input_):
         print('USAGE: python whoosh_engine.py --data-folder=example_folder/')
         sys.exit(0)
 
-    if not re.search('--data-folder=[a-zA-Z][a-zA-Z]*',input_):
+    ###############
+    # DATA FOLDER #
+    ###############
+    if not re.search('--data-folder=[^\ ][^\ ]*',input_):
         print('Please provide a valid data folder (--data-folder=example_folder/)')
         sys.exit(1)
     
-    data_folder = re.findall('--data-folder=([a-zA-Z][a-zA-Z]*)',input_)[0]
+    data_folder = re.findall('--data-folder=([^\ ][^\ ]*)',input_)[0]
     if not os.path.exists(data_folder):
         print('Data folder does not exist, please provide valid data folder.')
         sys.exit(2)
+
+    ###################
+    # METADATA FOLDER #
+    ###################
+    if not re.search('--metadata-folder=[^\ ][^\ ]*',input_):
+        print('Please provide a valid data folder (--data-metadata=example_folder/)')
+        sys.exit(3)
     
+    metadata_folder = re.findall('--metadata-folder=([^\ ][^\ ]*)',input_)[0]
+    if not os.path.exists(data_folder):
+        print('Data folder does not exist, please provide valid data folder.')
+        sys.exit(4)
     
+    ###########
+    # RUNNING #
+    ###########
     print('Defining Schema ...',end='')
     schema = Schema(ID=ID(stored=True),
                     title=TEXT(analyzer=StemmingAnalyzer(), sortable=True),
@@ -51,7 +70,7 @@ if __name__=='__main__':
 
 
     print(f'Using data folder: {data_folder}')
-    files = [os.path.join(data_folder,file) for file in os.listdir(data_folder) if file.endswith('json')]
+    files = [os.path.join(metadata_folder,file) for file in os.listdir(metadata_folder) if file.endswith('json')]
     print(f'Processing {len(files)} JSON files ....',end='')
 
     writer = ix.writer()
@@ -68,8 +87,8 @@ if __name__=='__main__':
 
         data = json.load(open(file))
         text=''
-        if os.path.isfile(file.replace('.json','.txt')):
-            text = open(file.replace('.json','.txt'),'r').read()
+        if os.path.isfile(file.replace('.json','.txt').replace(metadata_folder, data_folder)):
+            text = open(file.replace('.json','.txt').replace(metadata_folder,data_folder),'r').read()
             count_txt+=1
 
         title = data['title'] if 'title' in data else ''
@@ -98,8 +117,8 @@ from whoosh.qparser import QueryParser,MultifieldParser
 from whoosh.scoring import MultiWeighting
 
 
-def _search(query, data_path, limit):
-    ix = index.open_dir("index")
+def _search(query, limit, index_path):
+    ix = index.open_dir(index_path)
     searcher = ix.searcher()
 
     qp = MultifieldParser(['ID', 'title', 'abstract', 'body', 'authors'], schema=ix.schema)
@@ -114,8 +133,8 @@ def _search(query, data_path, limit):
 
 import pandas as pd
 
-def compute_relevance(query, data_path='data/',limit=20):
-    hits = _search(query, data_path=data_path, limit=limit)
+def compute_relevance(query, index_path='index/',  metadata_path='data/',limit=20):
+    hits = _search(query, limit=limit, index_path=index_path)
     d = {
     'title': [],
     'abstract': [], 
@@ -124,7 +143,7 @@ def compute_relevance(query, data_path='data/',limit=20):
     'score': []
             }
     for id_, score in hits:
-        f = open(os.path.join(data_path,f'{id_}.json'))
+        f = open(os.path.join(metadata_path,f'{id_}.json'))
 
         # returns JSON object as 
         # a dictionary
