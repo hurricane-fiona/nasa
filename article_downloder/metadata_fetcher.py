@@ -19,7 +19,7 @@ def get_all_articles_metadata():
         print("{} Articles downloaded for {} to {}".format(total_articles_downloaded_for_year,
                                                            fromYear, toYear))
         fromYear = toYear
-        toYear = toYear + 5
+        toYear = toYear + 1
         page_start = 0
 
 
@@ -36,7 +36,7 @@ def get_articles_by_year(fromYear, toYear, page_start, citation_already_download
 def get_articles_metadata_for_search_body(req_body, page_start, fromYear, toYear,
                                           citation_already_downloaded):
     total_articles_downloaded = 0
-    while page_start <= NTRSClient.MAX_PAGE_NUMBER:
+    while page_start < NTRSClient.MAX_PAGE_NUMBER:
         print("Fetching {} to {} Articles".format(str(page_start),
                                                                   int(page_start) + int(
             NTRSClient.MAX_PAGE_SIZE)))

@@ -4,7 +4,7 @@ import json
 BASE_NTRS_URL = "https://ntrs.nasa.gov"
 SEARCH_URL = BASE_NTRS_URL + "/api/citations/search"
 MAX_PAGE_SIZE = 100
-MAX_PAGE_NUMBER = 600000
+MAX_PAGE_NUMBER = 10000
 
 
 collected_data = []
