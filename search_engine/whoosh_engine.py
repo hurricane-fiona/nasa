@@ -153,6 +153,7 @@ def compute_relevance(query,limit=20):
     'score': [],
     'text_link':[],
     'pdf_link':[],
+    'authors':[],
             }
     for id_, score in hits:
         f = open(os.path.join(get_metadata_path(),f'{id_}.json'))
@@ -176,7 +177,13 @@ def compute_relevance(query,limit=20):
         d['abstract'].append(abstract)
         d['id'].append(id_)
         d['keywords'].append(keywords)
-
+        
+        try:
+            authors = [author['meta']['author']['name'] for author in data['authorAffiliations']]
+        except:
+            authors = []
+        authors = ';'.join(authors)
+        d['authors'].append(authors)
 
         try: 
             text_link = BASE_NTRS_URL + data_item['downloads'][0]['links']['fulltext']
