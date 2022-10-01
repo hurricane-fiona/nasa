@@ -140,6 +140,9 @@ def _search(query, limit):
 
 import pandas as pd
 
+
+BASE_NTRS_URL = "https://ntrs.nasa.gov"
+
 def compute_relevance(query,limit=20):
     hits = _search(query, limit=limit)
     d = {
