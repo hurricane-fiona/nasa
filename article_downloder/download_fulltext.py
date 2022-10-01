@@ -39,8 +39,9 @@ def download_from_dir(dir_path):
     for index, metadata_file in enumerate(to_download):
         print("Downloading {} of {} files".format(index, len(json_files)))
         for each in metadata[index]["downloads"]:
-            URL = each['links']['fulltext']
-            download_and_save(URL)
+            if 'fulltext' in each['links']:
+                URL = each['links']['fulltext']
+                download_and_save(URL)
 
 
 if __name__ == "__main__":
