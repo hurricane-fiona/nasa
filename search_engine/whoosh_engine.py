@@ -177,9 +177,16 @@ def compute_relevance(query,limit=20):
         d['id'].append(id_)
         d['keywords'].append(keywords)
 
-        text_link = BASE_NTRS_URL + data_item['downloads'][0]['links']['fulltext'] if 'downloads' in data_item and 'fulltext' in data_item['downloads'][0]['links'] else ''
-        pdf_link = BASE_NTRS_URL + data_item['downloads'][0]['links']['pdf'] if 'downloads' in data_item and 'pdf' in data_item['downloads'][0]['links'] else ''
 
+        try: 
+            text_link = BASE_NTRS_URL + data_item['downloads'][0]['links']['fulltext']
+        except:
+            text_link=''
+
+        try:
+            pdf_link = BASE_NTRS_URL + data_item['downloads'][0]['links']['pdf'] 
+        except:
+            pdf_link=''
         d['text_link'].append(text_link)
         d['pdf_link'].append(pdf_link)
         
