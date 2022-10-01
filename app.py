@@ -65,8 +65,8 @@ def show_results(n_clicks, input_value):
     output = None
     if input_value:
         data = compute_relevance(input_value).head(6)
-        print(data)
-        print(data.relevance)
+        # print(data)
+        # print(data.relevance)
         output = [
             dbc.Row(
                 [
