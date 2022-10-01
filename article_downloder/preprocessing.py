@@ -7,7 +7,7 @@ import spacy
 
 
 files = [file for file in  os.listdir('.')  if file.endswith('txt')]
-texts = [open(file, 'r').read() for file in files]
+texts = (open(file, 'r').read() for file in files)
 
 print(f'Processing {len(files)} files (txt).')
 
@@ -27,10 +27,15 @@ def lemmatize(text):
 
 
 print('Lemmatizing corpus and building TF-IDF')
-texts = list(map(lemmatize, texts))
+texts = map(lemmatize, texts)
 vectorizer = TfidfVectorizer(ngram_range=(1, 3), max_features=10000, max_df=0.8, min_df=0.01, stop_words='english', token_pattern=r"(?u)\b[a-zA-Z][a-zA-Z][a-zA-Z]+\b" ) 
-X = vectorizer.fit_transform(texts)
+vectorizer.fit(texts)
 
+
+texts = (open(file, 'r').read() for file in files)
+texts = map(lemmatize, texts)
+
+X = vectorizer.transform(texts)
 print('Saving vectorizer object')
 pickle.dump(vectorizer , open('vectorizer.pkl', 'wb'))
 

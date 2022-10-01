@@ -6,3 +6,4 @@ openstack*
 *.pkl
 .idea/
 article_downloder/preprocessing.ipynb
+article_downloder/.ipynb_checkpoints/
