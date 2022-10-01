@@ -12,6 +12,7 @@ def get_dummy_data():
         'title': [],
         'abstract': [],
         'id': [],
+        'keywords':[],
     }
     data = json.load(f)
 
@@ -21,11 +22,12 @@ def get_dummy_data():
         title = data_item['title'] if 'title' in data_item else ''
         abstract = data_item['abstract'] if 'abstract' in data_item else ''
         id_ = data_item['id'] if 'id' in data_item else ''
+        keywords = ';'.join(data_item['subjectCategories']) if 'subjectCategories' in data_item else ''
 
         d['title'].append(title)
         d['abstract'].append(abstract)
         d['id'].append(id_)
-        # categories
+        d['keywords'].append(keywords)
         # link to the pdf
         # link to the full text
 
