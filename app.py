@@ -33,7 +33,7 @@ app.layout = dbc.Container(
                         id="query",
                         placeholder="Search",
                         type="text",
-                        value="test query"
+                        # value="test query"
                     ),
                     width=9
                 ),
@@ -125,7 +125,7 @@ def show_results(n_clicks, input_value):
 
 if __name__ == "__main__":
     app.run_server(
-        # host = "0.0.0.0",
+        host = "0.0.0.0",
         port=37639,
         debug=True
     )
