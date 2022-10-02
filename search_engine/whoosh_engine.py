@@ -178,7 +178,11 @@ def compute_relevance(query,limit=20):
         title = data_item['title'] if 'title' in data_item else ''
         abstract = data_item['abstract'] if 'abstract' in data_item else ''
         id_ = data_item['id'] if 'id' in data_item else ''
-        keywords = ';'.join(data_item['subjectCategories']) if 'subjectCategories' in data_item else ''
+        
+        if 'keywords' in data_item: 
+            keywords = ';'.join(data_item['keywords']
+        else:
+            keywords = ';'.join(data_item['subjectCategories']) if 'subjectCategories' in data_item else ''
 
         d['title'].append(title)
         d['abstract'].append(abstract)
