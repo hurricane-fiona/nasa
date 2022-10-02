@@ -140,7 +140,9 @@ def _search(query, limit):
 
 import pandas as pd
 
-
+import sys
+sys.path.append('..')
+from preprocessing.count_vectorizer import high_frequency_words
 BASE_NTRS_URL = "https://ntrs.nasa.gov"
 
 def compute_relevance(query,limit=20):
@@ -154,6 +156,7 @@ def compute_relevance(query,limit=20):
     'text_link':[],
     'pdf_link':[],
     'authors':[],
+    'high_frequency_words':[],
             }
     for id_, score in hits:
         f = open(os.path.join(get_metadata_path(),f'{id_}.json'))
@@ -168,16 +171,26 @@ def compute_relevance(query,limit=20):
         # Iterating through the json
         # list
     #             for data_item in data:
+        textfile_path = os.path.join(get_data_path(),f'{id_}.txt')
+        if os.path.isfile(textfile_path):
+            fulltext = open(textfile_path,'r').read()
+        
         title = data_item['title'] if 'title' in data_item else ''
         abstract = data_item['abstract'] if 'abstract' in data_item else ''
         id_ = data_item['id'] if 'id' in data_item else ''
-        keywords = ';'.join(data_item['subjectCategories']) if 'subjectCategories' in data_item else ''
+        
+        if 'keywords' in data_item: 
+            keywords = ';'.join(data_item['keywords'])
+        else:
+            keywords = ';'.join(data_item['subjectCategories']) if 'subjectCategories' in data_item else ''
 
         d['title'].append(title)
         d['abstract'].append(abstract)
         d['id'].append(id_)
         d['keywords'].append(keywords)
         
+        
+        d['high_frequency_words'].append(high_frequency_words(f'{title}. {abstract}. {fulltext}') )
         try:
             authors = [author['meta']['author']['name'] for author in data_item['authorAffiliations']]
         except:
