@@ -16,8 +16,8 @@ df = pd.DataFrame({
 def build_figure(df):
     figure = px.bar(
         df,
-        x='words',
-        y='frequency',
+        x='Words',
+        y='Frequency',
         template="flatly",  # "darkly",
         width=300,
         height=300,
@@ -25,11 +25,18 @@ def build_figure(df):
     figure.update_layout(
         margin=dict(l=20, r=20, t=20, b=20),
         paper_bgcolor="#375a7f",  # cornflowerblue lightsteelblue steelblue
+        font_color = "white",
     )
     return figure
 
 
-def create_card(title, key_words, relevance, summary):  # summary
+def create_card(title, authors, key_words, relevance, summary, words, full_text_url):  # summary
+    df_words = pd.DataFrame(
+        {
+            "Words":[i[0] for i in words],
+            "Frequency":[i[1] for i in words]
+        }        
+    )
     my_card = dbc.Card(
         # <<<<<<< HEAD
         [
@@ -40,26 +47,48 @@ def create_card(title, key_words, relevance, summary):  # summary
                         [
                             dbc.Col(
                                 [
-                                    dbc.Row(dbc.Col(html.B("Authors: " + "authors", className="card-subtitle"))),
+                                    dbc.Row(dbc.Col(html.Div(
+                                        [
+                                            html.B("Authors: "),
+                                            ", ".join(authors.split(";")), 
+                                        ],
+                                        className="card-subtitle"))),
                                     html.Br(),
-                                    dbc.Row(dbc.Col(html.B("Key words: " + key_words, className="card-subtitle"))),
+                                    dbc.Row(dbc.Col(html.Div(
+                                        [
+                                            html.B("Key Words: "),
+                                            ", ".join(key_words.lower().split(";")), 
+                                        ],
+                                        className="card-subtitle"))),
                                     html.Br(),
-                                    dbc.Row(dbc.Col(html.B("Categories: " + "categories", className="card-subtitle"))),
+                                    # dbc.Row(dbc.Col(html.B("Categories: " + "categories", className="card-subtitle"))),
+                                    # html.Br(),
+                                    dbc.Row(dbc.Col(
+                                        [
+                                            html.B("Relevance: "),
+                                            str("{:.2f}".format(relevance)),
+                                        ],
+                                        className="card-subtitle")),
                                     html.Br(),
-                                    dbc.Row(dbc.Col(html.B("Relevance: " + str("{:.2f}".format(relevance)),
-                                                           className="card-subtitle"))),
                                     dbc.Row(dbc.Col(html.P(
-                                        "Summary: " + summary,
+                                        [html.B("Abstract: "), summary],
                                         className="card-text",
                                     ))),
                                     html.Br(),
                                     dbc.Row(
                                         [
                                             # dbc.Col(width=9),
-                                            dbc.Col(dbc.Button("Summary", href="https://google.com",
-                                                               style={"width": "100%"})),
-                                            dbc.Col(dbc.Button("Full text", href="https://google.com",
-                                                               style={"width": "100%"})),
+                                            dbc.Col(dbc.Button(
+                                                "Summary", 
+                                                # href="https://google.com",
+                                                # href=full_tex,
+                                                style={"width": "100%"})),
+                                            dbc.Col(dbc.Button(
+                                                "Full text", 
+                                                # href="https://google.com",
+                                                href=full_text_url,
+                                                target = "_blank",
+                                                style={"width": "100%"})),
                                         ]
                                     )
                                 ],
@@ -69,7 +98,7 @@ def create_card(title, key_words, relevance, summary):  # summary
                                 dbc.Card(
                                     dcc.Graph(
                                         id='graph',
-                                        figure=build_figure(df),
+                                        figure=build_figure(df_words),
                                         style={'border-radius': '15px', 'background-color': '#375a7f'}
                                     ),
                                     style={
