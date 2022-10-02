@@ -1,8 +1,7 @@
 from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
 
-def high_frequency_words(file, max_words=15):
-    text=open(file,'r').read()
+def high_frequency_words(text, max_words=15):
     vectorizer = CountVectorizer(stop_words='english', 
                                  input='content',
                                  ngram_range=(1, 3), 
