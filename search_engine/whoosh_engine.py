@@ -189,8 +189,10 @@ def compute_relevance(query,limit=20):
         d['id'].append(id_)
         d['keywords'].append(keywords)
         
-        
-        d['high_frequency_words'].append(high_frequency_words(f'{title}. {abstract}. {fulltext}') )
+        if os.path.isfile(textfile_path):
+            d['high_frequency_words'].append(high_frequency_words(f'{title}. {abstract}. {fulltext}') )
+        else:
+            d['high_frequency_words'].append(high_frequency_words(f'{title}. {abstract}.') )
         try:
             authors = [author['meta']['author']['name'] for author in data_item['authorAffiliations']]
         except:
