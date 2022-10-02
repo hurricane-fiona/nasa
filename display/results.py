@@ -72,7 +72,14 @@ def create_card(title, key_words, relevance, summary):  # summary
                                         figure=build_figure(df),
                                         style={'border-radius': '15px', 'background-color': '#375a7f'}
                                     ),
-                                    style={'background-color': '#375a7f', 'padding': '5px', 'border-radius': '15px'}
+                                    style={
+                                        'background-color': '#375a7f', 
+                                        'padding': '5px', 
+                                        'border-radius': '15px', 
+                                        # "margin-left":"auto",
+                                        # "margin-right":"auto",
+                                    },
+                                    className = "align-items-center"
                                 ),
                                 width=3,
                                 # align="center"
