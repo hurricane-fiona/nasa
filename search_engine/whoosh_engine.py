@@ -180,7 +180,7 @@ def compute_relevance(query,limit=20):
         id_ = data_item['id'] if 'id' in data_item else ''
         
         if 'keywords' in data_item: 
-            keywords = ';'.join(data_item['keywords']
+            keywords = ';'.join(data_item['keywords'])
         else:
             keywords = ';'.join(data_item['subjectCategories']) if 'subjectCategories' in data_item else ''
 
