@@ -171,7 +171,7 @@ def compute_relevance(query,limit=20):
         # Iterating through the json
         # list
     #             for data_item in data:
-        textfile_path = os.path.join(get_data_path,f'{id_}.txt')
+        textfile_path = os.path.join(get_data_path(),f'{id_}.txt')
         if os.path.isfile(textfile_path):
             fulltext = open(textfile_path,'r').read()
         
