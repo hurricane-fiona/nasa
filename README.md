@@ -6,13 +6,20 @@ The current state of the NASA Technical Report Server (NTRS) repository limits i
 
 [Prototype](http://fionaai.earth:37639/)
 
+[30-second Pitch](https://www.youtube.com/watch?v=LcE-qipy2kk)
+
 # Features
 
 Our system models the topics in the corpus by estimating their distribution on the whole corpus using the implementation of Latent Dirichlet Allocation of the Scikit-Learn library. When a user searches for a key phrase, the system maps that query into the same representation as the topics, i.e., the same topic space, and displays the topics related to the query in a 2D scatter plot. The user can then filter the desired topics through a visualization displayed on our application’s dashboard. Once the topics are filtered, the user receives query results based on the desired topics. Statistics for each of the search results like word frequency count and summary are also displayed to summarize the query results to inform the user of the contents of the document.
 
 # Installation
 
+    git clone https://github.com/hurricane-fiona/nasa.git
+    cd nasa
     pip install -r requirements.txt
+    python article_downloader/metadata_fetcher.py
+    python article_downloader/download_fulltext.py
+    python search_engine/whoosh_engine.py
     
 # Usage
 
@@ -25,4 +32,4 @@ Our system models the topics in the corpus by estimating their distribution on t
 
 # License
 
-This project is license under the MIT License
+This project is licensed under the MIT License
