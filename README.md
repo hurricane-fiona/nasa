@@ -1,4 +1,10 @@
 # Towards preserving our science legacy: Building a topically-aware, searchable, and accessible system
+![Contributors](https://img.shields.io/github/contributors/mmaisonnave/unplanned-hospital-readmission-prediction?style=plastic)
+![Forks](https://img.shields.io/github/forks/mmaisonnave/unplanned-hospital-readmission-prediction)
+![Stars](https://img.shields.io/github/stars/mmaisonnave/unplanned-hospital-readmission-prediction)
+![GitHub](https://img.shields.io/github/license/mmaisonnave/unplanned-hospital-readmission-prediction?style=round-square)
+![Issues](https://img.shields.io/github/issues/mmaisonnave/unplanned-hospital-readmission-prediction)
+
 
 The current state of the NASA Technical Report Server (NTRS) repository limits its usability, since the current filter-based system is only useful when the user knows exactly what he/she is looking for. To address this issue, we created an enhanced search engine that displays the topics in the collection before showing the relevant documents. Being able to compare the search results in terms of their topics allows the user to explore the results more efficiently and have a better understanding of them. In our system, users submit a query and then select the topics they are interested in, which are then used to guide the retrieval process, enhancing the results from a state-of-the-art search engine.
 
